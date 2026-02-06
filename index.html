@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mała historia 💌</title>
+
+<style>
+:root{
+  --bg:#0f1020;
+  --card:#ffffff10;
+  --text:#ffffffea;
+  --muted:#ffffffb3;
+  --accent:#ff5c8a;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:linear-gradient(180deg,#0b0c1d,#150f2b);
+  color:var(--text);
+}
+
+/* Sekcje */
+section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
+}
+
+.card{
+  max-width:700px;
+  width:100%;
+  background:var(--card);
+  border:1px solid #ffffff1f;
+  border-radius:26px;
+  padding:38px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 30px 80px #00000066;
+  opacity:0;
+  transform:translateY(30px);
+  transition:.8s ease;
+}
+
+.card.visible{
+  opacity:1;
+  transform:none;
+}
+
+h1,h2{
+  margin-top:0;
+  font-weight:700;
+}
+
+p{
+  line-height:1.7;
+  color:var(--muted);
+  font-size:18px;
+}
+
+/* Strzałka */
+.scroll-hint{
+  position:absolute;
+  bottom:30px;
+  font-size:14px;
+  opacity:.6;
+  animation:float 2s infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(6px)}
+}
+
+/* Przyciski */
+.buttons{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  margin-top:30px;
+  position:relative;
+}
+
+button{
+  border:none;
+  border-radius:16px;
+  padding:14px 22px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.yes{
+  background:linear-gradient(135deg,#ff5c8a,#ff8fb3);
+  color:white;
+}
+
+.no{
+  background:#ffffff14;
+  color:white;
+  border:1px solid #ffffff33;
+  position:relative;
+}
+
+footer{
+  text-align:center;
+  opacity:.4;
+  font-size:14px;
+  padding:30px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔧 PERSONALIZUJ: imię -->
+<section>
+  <div class="card visible">
+    <h1>Cześć, <span style="color:var(--accent)">Ania</span>.</h1>
+    <p>
+      Nie jest to zwykła strona.  
+      To kilka myśli, które chciałem ułożyć spokojnie, bez pośpiechu.
+    </p>
+    <div class="scroll-hint">przewiń ↓</div>
+  </div>
+</section>
+
+<!-- 🔧 PERSONALIZUJ -->
+<section>
+  <div class="card">
+    <h2>Pamiętasz moment, gdy…</h2>
+    <p>
+      po raz pierwszy naprawdę dobrze nam się rozmawiało?  
+      Bez stresu. Bez udawania.  
+      Tak po prostu – naturalnie.
+    </p>
+  </div>
+</section>
+
+<!-- 🔧 PERSONALIZUJ -->
+<section>
+  <div class="card">
+    <h2>Lubię w Tobie</h2>
+    <p>
+      sposób, w jaki się śmiejesz,  
+      jak potrafisz słuchać,  
+      i to, że przy Tobie wszystko jest jakieś… lżejsze.
+    </p>
+  </div>
+</section>
+
+<!-- 🔧 PERSONALIZUJ -->
+<section>
+  <div class="card">
+    <h2>Dlatego pomyślałem</h2>
+    <p>
+      że zamiast pisać to w pośpiechu,  
+      wolę zapytać w trochę inny sposób.
+    </p>
+  </div>
+</section>
+
+<!-- FINAŁ -->
+<section>
+  <div class="card" id="final">
+    <h2>Czy zostaniesz moją walentynką? 💌</h2>
+    <p>
+      Bez presji.  
+      Po prostu szczera propozycja.
+    </p>
+
+    <div class="buttons">
+      <button class="yes" onclick="yes()">Tak 💖</button>
+      <button class="no" id="no">Nie 🙈</button>
+    </div>
+
+    <p id="answer" style="display:none;margin-top:20px;color:#fff;">
+      💞 Cieszę się. Naprawdę.
+    </p>
+  </div>
+</section>
+
+<footer>
+  Zrobione specjalnie dla Ciebie
+</footer>
+
+<script>
+/* animacje przy scrollu */
+const cards = document.querySelectorAll('.card');
+
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+    }
+  });
+},{threshold:.2});
+
+cards.forEach(c=>obs.observe(c));
+
+/* przycisk NIE */
+const no = document.getElementById('no');
+no.addEventListener('mouseenter', ()=>{
+  const x = Math.random()*120 - 60;
+  const y = Math.random()*30 - 15;
+  no.style.transform = `translate(${x}px,${y}px)`;
+});
+
+/* TAK */
+function yes(){
+  document.getElementById('answer').style.display='block';
+  no.style.display='none';
+}
+</script>
+
+</body>
+</html>
